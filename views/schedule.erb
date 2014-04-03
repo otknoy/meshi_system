@@ -1,0 +1,13 @@
+<h1><%= @title %></h1>
+<div>
+<%=
+@date_list
+@count_list
+@date_list.zip(@count_list).map do |d, c|
+  <<"EOS"
+  <h2><a href='date/#{d}'>#{d}</a></h2>
+   #{c} member wanna go ***!
+EOS
+end.join("\n")
+%>
+</div>

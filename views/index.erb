@@ -1,0 +1,27 @@
+<h1><%= @title %></h1>
+<div>
+  <form method="post" action="/new">
+    <p>
+      <input type="date" name="date" min="2014/04/01" />
+      に
+      <select name="where">
+	<% @shops.each do |s| %>
+	<option><%= s %></option>
+	<% end %>
+      </select>
+      へ行きたい!
+    </p>
+    <input type="submit" value="追加する" />
+  </form>
+</div>
+
+<div>
+  <% @data.each do |date, wheres| %>
+    <% wheres.each do |where, like_count| %>
+  <p>
+    <%= date %>に<%= where %>へ行きたい!
+    Like<%= like_count %>
+  </p>
+    <% end %>
+  <% end %>  
+</div>
