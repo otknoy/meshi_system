@@ -1,12 +1,13 @@
 <h1><%= @title %></h1>
+
 <div>
   <form method="post" action="/new">
     <p>
       <input type="date" name="date" min="2014/04/01" />
       に
-      <select name="where">
-	<% @shops.each do |s| %>
-	<option><%= s %></option>
+      <select name="place">
+	<% @places.each do |p| %>
+	<option><%= p %></option>
 	<% end %>
       </select>
       へ行きたい!
@@ -15,13 +16,19 @@
   </form>
 </div>
 
+<h2>「メシ行こ」リスト (<%= @data.size %>)</h2>
 <div>
-  <% @data.each do |date, wheres| %>
-    <% wheres.each do |where, like_count| %>
-  <p>
-    <%= date %>に<%= where %>へ行きたい!
-    Like<%= like_count %>
-  </p>
-    <% end %>
-  <% end %>  
+  <% @data.each do |d| %>
+  <div>
+    <p>
+      <%= d.date %> に <%= d.place %> へ行きたい！ いいね  <span><%= d.like_count %></span>
+    </p>
+  </div> 
+  <% end %>
+</div>
+
+<div>
+  <h2>なぜ作ったのか</h2>
+  <blockquote class="twitter-tweet" lang="ja"><p>今日いち花行きたい人挙手！みたいなシステム作りたい。</p>&mdash; Naoya Otsuka (@otknoy) <a href="https://twitter.com/otknoy/statuses/449805049653248000">2014, 3月 29</a></blockquote>
+  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
