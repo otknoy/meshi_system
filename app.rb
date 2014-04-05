@@ -15,11 +15,12 @@ ActiveRecord::Base.logger = Logger.new(STDOUT)
 class Post < ActiveRecord::Base
 end
 
-
 class App < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
   end
+
+  # set :environment, :production
 
   get '/' do
     @title = '「メシ行こ」支援システム (仮)'
@@ -34,16 +35,18 @@ class App < Sinatra::Base
     date = params[:date]
     place = params[:place]
   
-    # post = Post.new(:date => date, :shop => shop, :like_count => 0)
-    post = Post.new(:date => date, :place => place, :like_count => 0)  
-    post.save
+    post = Post.create(:date => date, :place => place, :like_count => 0)  
 
     redirect '/'
+  end
 
-    # @test = Post.methods
-    # @test = shop
-    # erb :test
+  post '/like' do
+    post = Post.find(params[:id])
+    post.like_count += 1
+    post.save
+    
+    redirect '/'
   end
 end
 
-App.run! :host => 'localhost', :port => 9090
+App.run! :host => 'localhost', :port => 8123

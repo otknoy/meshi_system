@@ -16,19 +16,25 @@
   </form>
 </div>
 
-<h2>「メシ行こ」リスト (<%= @data.size %>)</h2>
+<h2>メシリスト (<%= @data.size %>)</h2>
 <div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <% @data.each do |d| %>
-  <div>
-    <p>
-      <%= d.date %> に <%= d.place %> へ行きたい！ いいね  <span><%= d.like_count %></span>
+  <form method="post" id="post<%= d.id %>" action="/like">
+    <p data-id="<%= d.id %>">
+      <%= d.date %>
+      に
+      <%= d.place %>
+      へ行きたい！
+      
+      <input type="hidden" name="id" value="<%= d.id %>" />
+      <input type="submit" onclick="$(this).attr({disabled: true}); $('#post<%= d.id %>').submit()" value="いいね" />
+      <span><%= d.like_count %><span>
     </p>
-  </div> 
+  </form>
   <% end %>
 </div>
 
 <div>
-  <h2>なぜ作ったのか</h2>
-  <blockquote class="twitter-tweet" lang="ja"><p>今日いち花行きたい人挙手！みたいなシステム作りたい。</p>&mdash; Naoya Otsuka (@otknoy) <a href="https://twitter.com/otknoy/statuses/449805049653248000">2014, 3月 29</a></blockquote>
-  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <h2><a href="https://twitter.com/otknoy/statuses/449805049653248000">なぜ作ったのか</a></h2>
 </div>
